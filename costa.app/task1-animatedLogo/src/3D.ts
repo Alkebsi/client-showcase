@@ -228,7 +228,7 @@ class Logo {
   starMesh: THREE.Mesh | null = null;
 
   constructor() {
-    this.loader.load('/logo.glb', (data) => {
+    this.loader.load('logo.glb', (data) => {
       this.model = data.scene;
 
       this.resize(); // Set initial scale based on current width
