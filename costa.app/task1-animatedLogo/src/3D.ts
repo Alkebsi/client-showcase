@@ -1,6 +1,5 @@
 import './main.css';
 import * as THREE from 'three';
-import gsap from 'gsap';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { AsciiEffect } from 'three/examples/jsm/effects/AsciiEffect';
@@ -220,23 +219,24 @@ class Renderer {
  */
 class Logo {
   app = new App();
-  renderer = this.app.renderer;
   scene = this.app.scene;
 
   loader = new GLTFLoader();
   model: THREE.Group | null = null;
   starMesh: THREE.Mesh | null = null;
 
+  // Animation State
+  targetRotationY = 0;
+  currentRotationY = 0;
+
   constructor() {
     this.loader.load('logo.glb', (data) => {
       this.model = data.scene;
-
-      this.resize(); // Set initial scale based on current width
+      this.resize();
 
       this.model.traverse((mesh) => {
         if (mesh instanceof THREE.Mesh) {
           mesh.material.side = THREE.DoubleSide;
-
           if (mesh.name === 'star') {
             mesh.geometry.computeBoundingBox();
             const center = new THREE.Vector3();
@@ -248,21 +248,12 @@ class Logo {
           }
         }
       });
-
       this.scene.add(this.model);
     });
 
-    // Interaction on the ASCII layer
     window.addEventListener('pointerup', (e) => {
       if ((e.target as HTMLElement).closest('.ascii-div') && this.starMesh) {
-        gsap.killTweensOf(this.starMesh.rotation);
-        const nextRotation =
-          (Math.floor(this.starMesh.rotation.y / Math.PI) + 1) * Math.PI;
-        gsap.to(this.starMesh.rotation, {
-          y: nextRotation,
-          duration: 3,
-          ease: 'elastic.out(1, 0.3)',
-        });
+        this.targetRotationY += Math.PI;
       }
     });
 
@@ -272,6 +263,16 @@ class Logo {
     const lightB = new THREE.PointLight(0xffffff, 50);
     lightB.position.set(-2, 2, -1);
     this.scene.add(lightA, lightB);
+  }
+
+  update() {
+    if (this.starMesh) {
+      const friction = 0.08;
+      const delta = this.targetRotationY - this.currentRotationY;
+
+      this.currentRotationY += delta * friction;
+      this.starMesh.rotation.y = this.currentRotationY;
+    }
   }
 
   resize() {
@@ -334,6 +335,7 @@ export default class App {
   update() {
     this.interval.update();
     this.camera.update();
+    this.logo.update();
     this.renderer.update();
   }
 }

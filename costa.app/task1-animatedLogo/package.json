@@ -7,7 +7,6 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "gsap": "3.13.0",
     "three": "^0.182.0"
   },
   "eslintConfig": {
