@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       leva-vanilla:
-        specifier: 0.0.1-alpha
-        version: 0.0.1-alpha
+        specifier: 0.0.2-alpha
+        version: 0.0.2-alpha
     devDependencies:
       vite:
         specifier: ^8.0.4
@@ -155,8 +155,8 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-  leva-vanilla@0.0.1-alpha:
-    resolution: {integrity: sha512-JV0ueFioMF5ScN5nVKMcXJ+2DwgQhq7j5Hn232TAmwLRfBNDDKKRiaB66B19HxiYUzhFuVTskS24fy5PmHsB8Q==}
+  leva-vanilla@0.0.2-alpha:
+    resolution: {integrity: sha512-aGBScJBNN9SmHR1C3mNHLTkS4vVYAtA2oSspCrkZDJoYZXZG7bzdAJvi3ZqBfB/cP6ty3zYFZW9KC0BPdhEs5A==}
 
   lightningcss-android-arm64@1.32.0:
     resolution: {integrity: sha512-YK7/ClTt4kAK0vo6w3X+Pnm0D2cf2vPHbhOXdoNti1Ga0al1P4TBZhwjATvjNwLEBCnKvjJc2jQgHXH0NEwlAg==}
@@ -399,7 +399,7 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  leva-vanilla@0.0.1-alpha: {}
+  leva-vanilla@0.0.2-alpha: {}
 
   lightningcss-android-arm64@1.32.0:
     optional: true
